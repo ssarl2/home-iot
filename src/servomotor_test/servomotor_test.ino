@@ -2,14 +2,11 @@
 
 Servo servo;
 
+int i = 0;
+
 void setup() {
     
-    Serial.begin(115200);
-    delay(10);
-
-    Serial.println();
-    Serial.print("START");
-
+    Serial.begin(9600);
 
     servo.attach(5); //D1
     servo.write(0);
@@ -20,15 +17,10 @@ void setup() {
 
 void loop() {
 
-    Serial.println();
-    Serial.print("A loop");
-
-    servo.write(90);
-
-    delay(1000);
-
-    servo.write(0);
-
-    delay(1000);
-
+    int turn=(90*i++)%360;
+    servo.write(turn);
+    Serial.print("Turn");
+    Serial.println(turn);
+    delay(500);
+    
 }

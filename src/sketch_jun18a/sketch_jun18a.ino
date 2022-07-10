@@ -1,5 +1,5 @@
-//http://www.esp8266learning.com/wemos-webserver-example.php
-
+// http://www.esp8266learning.com/wemos-webserver-example.php
+// https://codebender.cc/sketch:391080#WeMos_setup_video.ino
 
 
 #include <ESP8266WiFi.h>

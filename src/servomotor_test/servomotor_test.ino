@@ -1,6 +1,7 @@
 #include <Servo.h>
 
 Servo servo;
+int turn=0;
 
 int i = 0;
 
@@ -17,10 +18,39 @@ void setup() {
 
 void loop() {
 
-    int turn=(90*i++)%360;
+    // if(turn == 630)
+    // {
+    //     turn = 720;
+    // }
+    // else
+    // {
+    //     turn=(90*i++)%720;
+    // }
+
     servo.write(turn);
     Serial.print("Turn");
     Serial.println(turn);
-    delay(500);
-    
+    delay(300);
+
+    if(turn == 0)
+        turn = 180;
+    else
+        turn = 0;
+/*
+    if(turn < 360 && turn >= 0)
+        turn += 30;
+    else if(turn >= 360)
+    {
+        turn = 0;
+        delay(250);
+    }
+*/
+
+/*
+    if(turn < 0 && turn >= -360)
+        turn += 30;
+    else if(turn >= 0)
+        turn = -360;
+*/
+
 }

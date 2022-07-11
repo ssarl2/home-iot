@@ -44,7 +44,8 @@ void setup() {
 
     // Connect servomotor
     servo.attach(5); //D1
-    servo.write(0);
+    servo.write(90);
+    delay(1000);
 }
 
 void loop() {
@@ -69,14 +70,16 @@ void loop() {
     // Match the request
 
     int value = LOW;
-    if (request.indexOf("/Motor=ON") != -1) {
-        servo.write(180);
-        // digitalWrite(motorPin, HIGH);
+    if (request.indexOf("/ON") != -1) {
+        servo.write(140);
         value = HIGH;
     } 
-    if (request.indexOf("/Motor=OFF") != -1){
-        servo.write(0);
-        // digitalWrite(motorPin, LOW);
+    if (request.indexOf("/OFF") != -1){
+        servo.write(40);
+        value = LOW;
+    }
+    if (request.indexOf("/MID") != -1){
+        servo.write(90);
         value = LOW;
     }
 
@@ -95,8 +98,11 @@ void loop() {
         client.print("Off");
     }
     client.println("<br><br>");
-    client.println("Click <a href=\"/Motor=ON\">here</a> turn the Motor<br>");
-    client.println("Click <a href=\"/Motor=OFF\">here</a> turn the Motor<br>");
+    client.println("Click <a href=\"/ON\">ON</a> turn the Motor<br>");
+    client.println("<br><br>");
+    client.println("Click <a href=\"/OFF\">OFF</a> turn the Motor<br>");
+    client.println("<br><br>");
+    client.println("Click <a href=\"/MID\">MID</a> turn the Motor<br>");
     client.println("</html>");
 
     delay(1);

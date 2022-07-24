@@ -1,3 +1,29 @@
+# Install
+- Arduino IDE
+  - https://docs.arduino.cc/software/ide-v1/tutorials/Linux
+
+# Setup
+## Transfer code to ESP8266 D1 Mini
+In a terminal  
+- `arduino src/wifi_servomotor/wifi_servomotor.ino`  
+  
+Put the correct WiFi name and password in the [code](src/wifi_servomotor/wifi_servomotor.ino)  
+And press the red one.  
+![Transfer code](images/transfer_code.png)
+
+# Test
+## Get to know the ESP8266 D1 Mini ip address
+Press the red circle and check the red lines. 9600 is how you will see the log. Sort of channel?
+![IP address](images/ip_address.png)
+
+## Terminal
+Try simply
+```
+wget <your device ip>/ON
+wget <your device ip>/OFF
+wget <your device ip>/MIDDLE
+```
+- e.g., `wget 192.168.0.6/ON`
 # Links to refer
 - Servo motor : https://www.youtube.com/watch?v=tlgLA-PT5eE
 - Arduino IDE installation : https://docs.arduino.cc/software/ide-v1/tutorials/Linux

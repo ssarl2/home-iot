@@ -8,8 +8,9 @@ WiFiServer server(80);
 
 int motorPin = D1;
 
-const char* ssid = "abc";                           //!!!!!!!!!!!!!!!!!!!!! modify this
-const char* password = "1234abcd!!";                //!!!!!!!!!!!!!!!!!!!!!modify this
+// Only 2.4 GHz WiFi. ESP8266 does not support 5.0 GHz WiFi.
+const char* ssid = "name";             //!!!!!!!!!!!!!!!!!!!!! modify this
+const char* password = "password";     //!!!!!!!!!!!!!!!!!!!!! modify this
 
 void setup() {
 

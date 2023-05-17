@@ -3,10 +3,52 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 
+/*
+  Wemos d1 mini pin out
+
+  Pin  Function                       ESP-8266 Pin
+  TX  TXD                             TXD
+  RX  RXD                             RXD
+  A0  Analog input, max 3.3V input    A0
+  D0  IO                              GPIO16
+  D1  IO, SCL                         GPIO5
+  D2  IO, SDA                         GPIO4
+  D3  IO, 10k Pull-up                 GPIO0
+  D4  IO, 10k Pull-up, BUILTIN_LED    GPIO2
+  D5  IO, SCK                         GPIO14
+  D6  IO, MISO                        GPIO12
+  D7  IO, MOSI                        GPIO13
+  D8  IO, 10k Pull-down, SS           GPIO15
+  G   Ground                          GND
+  5V  5V                              -
+  3V3 3.3V                            3.3V
+  RST Reset                           RST
+
+  GPIO0: pull low during boot for flash mode (connects to a push button).
+  Other than that, usable as GPIO but beware of waht you connect to it.
+  GPIO1, 3: TX and RX (Serial). Also usable as GPIO if not using serial.
+  GPIO2: is pulled up during boot & internal LED (active LOW).
+  GPIO15: fixed external pull-down (for boot).
+  GPIO4, 5, 12-14, 16: nothing special.
+  Conclusion
+  Stick to A0, D0, D5, D6 and D7.
+*/
+static const uint8_t D0   = 16;
+static const uint8_t D1   = 5;
+static const uint8_t D2   = 4;
+static const uint8_t D3   = 0;
+static const uint8_t D4   = 2;
+static const uint8_t D5   = 14;
+static const uint8_t D6   = 12;
+static const uint8_t D7   = 13;
+static const uint8_t D8   = 15;
+static const uint8_t D9   = 3;
+static const uint8_t D10  = 1;
+
+
 Servo servo;
 WiFiServer server(80);
 
-int motorPin = D1;
 
 // Only 2.4 GHz WiFi. ESP8266 does not support 5.0 GHz WiFi.
 const char* ssid = "name";             //!!!!!!!!!!!!!!!!!!!!! modify this
@@ -44,7 +86,7 @@ void setup() {
     Serial.println("/");
 
     // Connect servomotor
-    servo.attach(5); //D1
+    servo.attach(D1);
     servo.write(90);
     delay(1000);
 }
@@ -86,6 +128,7 @@ void loop() {
 
     // Return the response
     client.println("HTTP/1.1 200 OK");
+    client.println("Access-Control-Allow-Origin: *");
     client.println("Content-Type: text/html");
     client.println(""); //  do not forget this one
     client.println("<!DOCTYPE HTML>");

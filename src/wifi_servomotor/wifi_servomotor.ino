@@ -54,7 +54,6 @@ const char *password = "password"; //!!!!!!!!!!!!!!!!!!!!! modify this
 
 void setup()
 {
-
     Serial.begin(9600);
     delay(10);
 
@@ -87,24 +86,34 @@ void setup()
 
     // Connect servomotor
     servo.attach(D1);
-    servo.write(90);
     delay(1000);
 }
 
 void loop()
 {
-
     // Check if a client has connected
+    // and if there's no client, it goes to the deep sleep mode
+    int sleep_timer = 5;
     WiFiClient client = server.available();
-    if (!client)
+    while (!client)
     {
-        return;
+        Serial.println("No client connection was found");
+
+        client = server.available();
+        if (sleep_timer < 0)
+        {
+            Serial.println("Deep sleep for 5 seconds");
+            ESP.deepSleep(5e6);
+        }
+        sleep_timer--;
+        delay(1000);
+        // return;
     }
 
     // Wait until the client sends some data
     while (!client.available())
     {
-        delay(500);
+        delay(200);
     }
     Serial.println("new client");
 
@@ -141,7 +150,7 @@ void loop()
     client.println("<!DOCTYPE HTML>");
     client.println("<html>");
 
+    delay(500);
     client.stop();
-    delay(1);
     Serial.println("Client disconnected");
 }

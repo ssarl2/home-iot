@@ -100,10 +100,10 @@ void loop() {
     }
 
     // Wait until the client sends some data
-    Serial.println("new client");
     while(!client.available()){
-        delay(10);
+        delay(500);
     }
+    Serial.println("new client");
 
     // Read the first line of the request
     String request = client.readStringUntil('\r');
@@ -134,23 +134,7 @@ void loop() {
     client.println("<!DOCTYPE HTML>");
     client.println("<html>");
 
-    client.print("Servo motor is turned now: ");
-
-    if(value == HIGH) {
-        client.print("On");  
-    } else {
-        client.print("Off");
-    }
-    client.println("<br><br>");
-    client.println("Click <a href=\"/ON\">ON</a> turn the Motor<br>");
-    client.println("<br><br>");
-    client.println("Click <a href=\"/OFF\">OFF</a> turn the Motor<br>");
-    client.println("<br><br>");
-    client.println("Click <a href=\"/MID\">MID</a> turn the Motor<br>");
-    client.println("</html>");
-
+    client.stop();
     delay(1);
     Serial.println("Client disconnected");
-    Serial.println("");
-
 }

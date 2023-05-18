@@ -33,28 +33,27 @@
   Conclusion
   Stick to A0, D0, D5, D6 and D7.
 */
-static const uint8_t D0   = 16;
-static const uint8_t D1   = 5;
-static const uint8_t D2   = 4;
-static const uint8_t D3   = 0;
-static const uint8_t D4   = 2;
-static const uint8_t D5   = 14;
-static const uint8_t D6   = 12;
-static const uint8_t D7   = 13;
-static const uint8_t D8   = 15;
-static const uint8_t D9   = 3;
-static const uint8_t D10  = 1;
-
+static const uint8_t D0 = 16;
+static const uint8_t D1 = 5;
+static const uint8_t D2 = 4;
+static const uint8_t D3 = 0;
+static const uint8_t D4 = 2;
+static const uint8_t D5 = 14;
+static const uint8_t D6 = 12;
+static const uint8_t D7 = 13;
+static const uint8_t D8 = 15;
+static const uint8_t D9 = 3;
+static const uint8_t D10 = 1;
 
 Servo servo;
 WiFiServer server(80);
 
-
 // Only 2.4 GHz WiFi. ESP8266 does not support 5.0 GHz WiFi.
-const char* ssid = "name";             //!!!!!!!!!!!!!!!!!!!!! modify this
-const char* password = "password";     //!!!!!!!!!!!!!!!!!!!!! modify this
+const char *ssid = "name";         //!!!!!!!!!!!!!!!!!!!!! modify this
+const char *password = "password"; //!!!!!!!!!!!!!!!!!!!!! modify this
 
-void setup() {
+void setup()
+{
 
     Serial.begin(9600);
     delay(10);
@@ -68,7 +67,8 @@ void setup() {
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
 
-    while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED)
+    {
         delay(500);
         Serial.print(".");
     }
@@ -91,16 +91,19 @@ void setup() {
     delay(1000);
 }
 
-void loop() {
+void loop()
+{
 
     // Check if a client has connected
     WiFiClient client = server.available();
-    if (!client) {
+    if (!client)
+    {
         return;
     }
 
     // Wait until the client sends some data
-    while(!client.available()){
+    while (!client.available())
+    {
         delay(500);
     }
     Serial.println("new client");
@@ -111,17 +114,21 @@ void loop() {
     client.flush();
 
     // Match the request
-
     int value = LOW;
-    if (request.indexOf("/ON") != -1) {
+    if (request.indexOf("/ON") != -1)
+    {
         servo.write(140);
         value = HIGH;
-    } 
-    if (request.indexOf("/OFF") != -1){
+    }
+
+    if (request.indexOf("/OFF") != -1)
+    {
         servo.write(40);
         value = LOW;
     }
-    if (request.indexOf("/MID") != -1){
+
+    if (request.indexOf("/MID") != -1)
+    {
         servo.write(90);
         value = LOW;
     }
